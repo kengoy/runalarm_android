@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Runalarm</string>
+    <string name="description">Please set alarm.</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_wakeup">WakeupActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="wake_up">WAKE UP!\n</string>
+    <string name="run">RUN TO STOP ALARM!</string>
+    <string name="now_you_are">NOW YOU ARE</string>
+    <string name="your_activity">STILL SLEEPING.</string>
+    <string name="title_activity_good_morning"></string>
+    <string name="good_morning">GOOD MORNING!</string>
+
+</resources>

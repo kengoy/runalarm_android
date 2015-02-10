@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape"
+    tools:context="com.sunoo.runalarm.WakeupActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <TextView android:id="@+id/fullscreen_content" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:keepScreenOn="true"
+        android:textStyle="bold" android:textSize="50sp" android:text="@string/wake_up" android:gravity="top|center"
+        android:fontFamily="sans-serif-light" android:layout_marginTop="100dp" />
+    <TextView android:id="@+id/fullscreen_content2" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_below="@+id/fullscreen_content"
+        android:keepScreenOn="true"
+        android:textStyle="bold" android:textSize="30sp" android:gravity="center"
+        android:fontFamily="sans-serif-light" android:text="@string/run" />
+    <TextView android:id="@+id/now_you_are" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_below="@+id/fullscreen_content2"
+        android:keepScreenOn="true"
+        android:textStyle="bold" android:textSize="30sp" android:gravity="bottom|center"
+        android:fontFamily="sans-serif-light" android:text="@string/now_you_are"
+        android:layout_marginBottom="150dp" />
+    <TextView android:id="@+id/your_activity" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_below="@+id/fullscreen_content2"
+        android:keepScreenOn="true"
+        android:textStyle="bold" android:textSize="30sp" android:gravity="bottom|center"
+        android:fontFamily="sans-serif-light" android:text="@string/your_activity"
+        android:layout_marginBottom="120dp" />
+
+    <LinearLayout
+        android:id="@+id/layout_ad"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#999"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="50dp" />
+
+</FrameLayout>

@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/shape"
+    >
+
+    <TextView android:text="@string/description" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-light"
+        android:layout_above="@+id/timePicker1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker1"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="50px"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-light" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switch1"
+        android:layout_below="@id/timePicker1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:checked="false" />
+
+    <LinearLayout
+        android:id="@+id/layout_ad"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#999"
+        android:orientation="vertical" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addAlarmButton"
+        android:visibility="invisible"
+        android:text="+ Add alarm" />
+</RelativeLayout>
