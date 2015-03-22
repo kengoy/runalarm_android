@@ -17,7 +17,6 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -70,9 +69,9 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
     private GoogleApiClient googleApiClient;
     private ActivityRecognition mClient;
     private AlarmBroadcastReceiver mReceiver;
-    private MediaPlayer mPlayer;
 
     private TextView mTVActivity = null;
+    private int remainingSec = 3;
 
     private LinearLayout mLayoutAd;
     private AdView mViewAd;
@@ -202,7 +201,7 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
                     public void onConnected(Bundle arg0) {
                         Log.d(TAG, "GoogleApiClient Connected Now");
                         ActivityRecognition.ActivityRecognitionApi.requestActivityUpdates(googleApiClient,
-                                0, getPendingIntent()).setResultCallback(
+                                1000, getPendingIntent()).setResultCallback(
                                 new ResultCallback<Status>() {
 
                                     @Override
@@ -214,6 +213,7 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
                                         }
                                     }
                                 });
+                        remainingSec = 3;
                     }
                 }).addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
@@ -272,6 +272,7 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
     public void onActivityRecognize(int activityType) {
         Log.v(TAG, "onActivityRecognize type=" + activityType);
 
+        mTVActivity.setTextSize(30);
         String activity;
         switch (activityType) {
             case DetectedActivity.IN_VEHICLE:
@@ -284,7 +285,12 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
                 activity = "ON FOOT.";
                 break;
             case DetectedActivity.WALKING:
-                activity = "WALKING.";
+                activity = "WALKING? " + remainingSec + " more seconds.";
+                mTVActivity.setTextSize(24);
+                remainingSec -= 1;
+                if(remainingSec <= 0) {
+                    finish();
+                }
                 break;
             case DetectedActivity.RUNNING:
                 activity = "RUNNING.";

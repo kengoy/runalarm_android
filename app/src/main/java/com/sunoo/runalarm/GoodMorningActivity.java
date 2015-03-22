@@ -35,8 +35,12 @@ public class GoodMorningActivity extends ActionBarActivity {
         try {
             AudioManager manager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
             mOriginalVol = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            int vol = manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            manager.setStreamVolume(AudioManager.STREAM_MUSIC, vol / 2, 0); // fixed volume
+            int volume_max = manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            int volume = PreferenceManager.getDefaultSharedPreferences(this).getInt(MainActivity.SHPR_KEY_ALARM_VOLUME, 5);
+
+            manager.setStreamVolume(AudioManager.STREAM_MUSIC, (int)Math.ceil(volume_max * (volume / 20.0f)), 0);
+            manager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+
             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                            @Override
                                            public void onCompletion(MediaPlayer mp) {

@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
-import android.provider.Settings;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -35,8 +35,10 @@ public class ActivityRecognitionIntentService extends IntentService {
     private final ActivityRecognitionIntentService self = this;
     private static MediaPlayer mPlayer = null;
     private static Vibrator mVibrator = null;
-    private static final int ALARM_VIBRATOR_TIME = 3 * 60 * 1000; // 3 mins
     private int mOriginalVol;
+
+    private int remainingSec = 3;
+    private boolean isIgnoreEvent = false;
 
     public ActivityRecognitionIntentService() {
         super("ActivityRecognitionIntentService");
@@ -48,9 +50,13 @@ public class ActivityRecognitionIntentService extends IntentService {
         if (intent != null) {
             if(ACTION_START.equals(intent.getAction())){
                 startAlarm();
+                remainingSec = 3;
             }
 
             if (ActivityRecognitionResult.hasResult(intent)) {
+                if(isIgnoreEvent) {
+                    return;
+                }
                 resumeAlarm();
 
                 ActivityRecognitionResult result = ActivityRecognitionResult.extractResult(intent);
@@ -74,6 +80,21 @@ public class ActivityRecognitionIntentService extends IntentService {
                         Intent goodMorningActivity = new Intent(this, GoodMorningActivity.class);
                         goodMorningActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(goodMorningActivity);
+                    } else if (activityType == DetectedActivity.WALKING) {
+                        remainingSec -= 1;
+                        if(remainingSec <= 0) {
+                            stopAlarm();
+                            Intent goodMorningActivity = new Intent(this, GoodMorningActivity.class);
+                            goodMorningActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(goodMorningActivity);
+                        } else {
+                            isIgnoreEvent = true;
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                            }
+                            isIgnoreEvent = false;
+                        }
                     }
 
                     Intent i = new Intent(ACTION);
@@ -140,29 +161,26 @@ public class ActivityRecognitionIntentService extends IntentService {
 
     private void startAlarm() {
         if(mPlayer == null) {
-            mPlayer = new MediaPlayer();
+            mPlayer = MediaPlayer.create(this, R.raw.wakeup_03);
             try {
-                mPlayer.setDataSource(self, Settings.System.DEFAULT_ALARM_ALERT_URI);
-                mPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-                mPlayer.prepare();
                 mPlayer.setLooping(true);
-                mPlayer.seekTo(0);
                 mPlayer.start();
 
                 AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-                mOriginalVol = manager.getStreamVolume(AudioManager.STREAM_ALARM);
-                int volume_max = manager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-                manager.setStreamVolume(AudioManager.STREAM_ALARM, volume_max / 2, 0);
-                manager.setStreamMute(AudioManager.STREAM_ALARM, false);
+                mOriginalVol = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                int volume_max = manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                int volume = PreferenceManager.getDefaultSharedPreferences(this).getInt(MainActivity.SHPR_KEY_ALARM_VOLUME, 5);
+
+                manager.setStreamVolume(AudioManager.STREAM_MUSIC, (int)Math.ceil(volume_max * (volume / 20.0f)), 0);
+                manager.setStreamMute(AudioManager.STREAM_MUSIC, false);
             } catch (IllegalStateException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
                 e.printStackTrace();
             }
 
             if(mVibrator == null) {
                 mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                mVibrator.vibrate(ALARM_VIBRATOR_TIME); // 3 min
+                long[] pattern = {0, 300, 100, 300, 5000}; // OFF/ON/OFF/ON...
+                mVibrator.vibrate(pattern, 0);
             }
         }
     }
