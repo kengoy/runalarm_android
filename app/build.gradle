@@ -7,8 +7,8 @@ android {
         applicationId "com.sunoo.runalarm"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 3
-        versionName "1.1"
+        versionCode 5
+        versionName "1.2"
     }
     buildTypes {
         release {

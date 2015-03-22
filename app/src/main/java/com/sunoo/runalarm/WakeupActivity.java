@@ -288,8 +288,10 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
                 activity = "WALKING? " + remainingSec + " more seconds.";
                 mTVActivity.setTextSize(24);
                 remainingSec -= 1;
-                if(remainingSec <= 0) {
-                    finish();
+                if(remainingSec < 0) {
+                    remainingSec = 0;
+                    //to be fixed.
+                    //finish();
                 }
                 break;
             case DetectedActivity.RUNNING:

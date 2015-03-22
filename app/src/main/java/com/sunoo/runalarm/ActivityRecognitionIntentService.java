@@ -50,7 +50,6 @@ public class ActivityRecognitionIntentService extends IntentService {
         if (intent != null) {
             if(ACTION_START.equals(intent.getAction())){
                 startAlarm();
-                remainingSec = 3;
             }
 
             if (ActivityRecognitionResult.hasResult(intent)) {
