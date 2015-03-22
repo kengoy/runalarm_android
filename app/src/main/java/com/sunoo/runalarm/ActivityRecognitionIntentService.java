@@ -16,7 +16,6 @@ import android.util.Log;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -35,6 +34,7 @@ public class ActivityRecognitionIntentService extends IntentService {
     private final ActivityRecognitionIntentService self = this;
     private static MediaPlayer mPlayer = null;
     private static Vibrator mVibrator = null;
+    private static final int ALARM_VIBRATOR_TIME = 3 * 60 * 1000; // 3 mins
     private int mOriginalVol;
 
     private int remainingSec = 3;
@@ -88,12 +88,14 @@ public class ActivityRecognitionIntentService extends IntentService {
                             goodMorningActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(goodMorningActivity);
                         } else {
+                            /*
                             isIgnoreEvent = true;
                             try {
                                 Thread.sleep(1000);
                             } catch (InterruptedException e) {
                             }
                             isIgnoreEvent = false;
+                            */
                         }
                     }
 
@@ -181,6 +183,7 @@ public class ActivityRecognitionIntentService extends IntentService {
                 mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 long[] pattern = {0, 300, 100, 300, 5000}; // OFF/ON/OFF/ON...
                 mVibrator.vibrate(pattern, 0);
+                //mVibrator.vibrate(ALARM_VIBRATOR_TIME); // 3 min
             }
         }
     }

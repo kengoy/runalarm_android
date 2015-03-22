@@ -16,6 +16,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
+import hotchemi.android.rate.AppRate;
+import hotchemi.android.rate.OnClickButtonListener;
+
 
 public class GoodMorningActivity extends ActionBarActivity {
 
@@ -69,6 +72,22 @@ public class GoodMorningActivity extends ActionBarActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(SHPR_KEY_LAUNCH_COUNT, launchCount + 1);
         editor.commit();
+
+        AppRate.with(this)
+                .setInstallDays(10)
+                .setRemindInterval(14) // default 1 day.
+                .setShowNeutralButton(true) // default true.
+                .setDebug(false) // default false.
+//                .setShowTitle(false) // default true
+                .setOnClickButtonListener(new OnClickButtonListener() { // callback listener.
+                    @Override
+                    public void onClickButton(int which) {
+                    }
+                })
+                .monitor();
+
+        // Show a dialog if meets conditions.
+        AppRate.showRateDialogIfMeetsConditions(this);
     }
 
 
