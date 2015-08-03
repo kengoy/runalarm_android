@@ -26,7 +26,7 @@ public class GoodMorningActivity extends ActionBarActivity {
     private AdView mViewAd;
 
     public final static String SHPR_KEY_LAUNCH_COUNT = "LAUNCH_COUNT";
-    private final int AD_FREE_LAUNCH_COUNT = 3;
+    private final int AD_FREE_LAUNCH_COUNT = 0;
     private int mOriginalVol;
 
     @Override
@@ -74,8 +74,9 @@ public class GoodMorningActivity extends ActionBarActivity {
         editor.commit();
 
         AppRate.with(this)
-                .setInstallDays(10)
-                .setRemindInterval(14) // default 1 day.
+                .setInstallDays(1)
+                .setLaunchTimes(2) // default 10
+                .setRemindInterval(2) // default 1 day.
                 .setShowNeutralButton(true) // default true.
                 .setDebug(false) // default false.
 //                .setShowTitle(false) // default true

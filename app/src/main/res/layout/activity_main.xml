@@ -10,6 +10,7 @@
         android:id="@+id/timePicker1"
         android:layout_centerInParent="true"
         android:fontFamily="sans-serif-light"
+        android:timePickerMode="spinner"
     />
 
     <TextView android:text="@string/description"
@@ -50,7 +51,7 @@
         android:src="@drawable/volume_control_icon"
         android:layout_toLeftOf="@id/volumeBar"
         android:layout_alignBottom="@id/volumeBar"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
     />
 
     <ToggleButton

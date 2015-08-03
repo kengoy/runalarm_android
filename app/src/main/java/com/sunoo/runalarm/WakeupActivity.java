@@ -77,7 +77,7 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
     private AdView mViewAd;
 
     public final static String SHPR_KEY_LAUNCH_COUNT = "LAUNCH_COUNT";
-    private final int AD_FREE_LAUNCH_COUNT = 5;
+    private final int AD_FREE_LAUNCH_COUNT = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +223,7 @@ public class WakeupActivity extends Activity implements ActivityRecognitionEvent
                 }).build();
 
         Intent intent = new Intent(ActivityRecognitionIntentService.ACTION_START);
+        intent.setPackage("com.sunoo.runalarm");
         startService(intent);
     }
 

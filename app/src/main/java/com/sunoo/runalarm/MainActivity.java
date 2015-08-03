@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     public final static String SHPR_KEY_ALARM_VOLUME = "ALARM_VOLUME";
     public final static String SHPR_KEY_LAUNCH_COUNT = "LAUNCH_COUNT";
     public static final String AD_UNIT_ID = "ca-app-pub-2622423706255892/9601933969";
-    private final int AD_FREE_LAUNCH_COUNT = 5;
+    private final int AD_FREE_LAUNCH_COUNT = 0;
 
     private LinearLayout mLayoutAd;
     private AdView mViewAd;

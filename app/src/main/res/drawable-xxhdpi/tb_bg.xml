@@ -3,9 +3,9 @@
 
     <item android:state_checked="true">
         <layer-list>
-            <item android:bottom="6dp" android:top="6dp">
+            <item android:bottom="6dp" android:top="6dp" android:left="6dp" android:right="6dp">
                 <shape android:shape="rectangle">
-                    <corners android:radius="24dp" />
+                    <corners android:radius="18dp" />
                     <solid android:color="#0a60ff" />
                 </shape>
             </item>
@@ -14,9 +14,9 @@
 
     <item>
         <layer-list>
-            <item android:bottom="6dp" android:top="6dp">
+            <item android:bottom="6dp" android:top="6dp" android:left="6dp" android:right="6dp">
                 <shape android:shape="rectangle">
-                    <corners android:radius="24dp" />
+                    <corners android:radius="18dp" />
                     <solid android:color="#00000000"/>
                     <stroke android:width="2dp" android:color="#e6e6e6"/>
                 </shape>
